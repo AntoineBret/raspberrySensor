@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.h.raspberrysensor"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            debuggable false
+            buildConfigField "boolean", "WITH_LOGS", "false"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            buildConfigField "boolean", "WITH_LOGS", "true"
+        }
+    }
+    flavorDimensions "networkEnv"
+    productFlavors {
+        stub {
+            applicationId "com.h.raspberrysensor.stub"
+            buildConfigField "String", "GATEWAY_BASE_ENDPOINT", "\"\""
+            dimension = "networkEnv"
+        }
+        dev {
+            applicationId "com.h.raspberrysensor"
+            buildConfigField "String", "GATEWAY_BASE_ENDPOINT", "\"\""
+            dimension = "networkEnv"
+        }
+    }
+    androidExtensions {
+        experimental = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    //AppCompact
+    implementation 'androidx.appcompat:appcompat:' + rootProject.supportLibVersion
+    implementation 'androidx.constraintlayout:constraintlayout:' + rootProject.constraintlayoutVersion
+    implementation 'com.google.android.material:material:' + rootProject.materialVersion
+
+    //Architecture Components (https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-extensions)
+    implementation 'androidx.lifecycle:lifecycle-runtime:' + rootProject.archCompVersion
+    implementation 'androidx.lifecycle:lifecycle-extensions:' + rootProject.archCompVersion
+    implementation 'androidx.lifecycle:lifecycle-reactivestreams:' + rootProject.archCompVersion
+
+    // RxJava (https://github.com/ReactiveX/RxJava/releases)
+    implementation 'io.reactivex.rxjava2:rxjava:' + rootProject.rxJavaVersion
+
+    //RxKotlin
+    implementation 'io.reactivex.rxjava2:rxkotlin:' + rootProject.rxKotlinVersion
+
+    // RxAndroid (https://github.com/ReactiveX/RxAndroid/tree/3.x)
+    implementation 'io.reactivex.rxjava2:rxandroid:' + rootProject.rxAndroidVersion
+
+    //Rx Bindings (https://github.com/JakeWharton/RxBinding)
+    implementation 'com.jakewharton.rxbinding3:rxbinding:' + rootProject.rxBindingVersion
+
+    // Dagger (https://github.com/google/dagger/releases)
+    kapt 'com.google.dagger:dagger-compiler:' + rootProject.daggerVersion
+    kapt 'com.google.dagger:dagger-android-processor:' + rootProject.daggerVersion
+    implementation 'com.google.dagger:dagger:' + rootProject.daggerVersion
+    implementation 'com.google.dagger:dagger-android:' + rootProject.daggerVersion
+    implementation 'com.google.dagger:dagger-android-support:' + rootProject.daggerVersion
+    annotationProcessor 'com.google.dagger:dagger-compiler:' + rootProject.daggerVersion
+    annotationProcessor 'com.google.dagger:dagger-android-processor:' + rootProject.daggerVersion
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:' + rootProject.timberVersion
+
+    //Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:' + rootProject.runnerVersion
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:' + rootProject.espressoVersion, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
