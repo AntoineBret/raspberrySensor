@@ -10,48 +10,77 @@
         android:id="@+id/fab_device"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_action_add_device"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_device"
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/deviceCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Address" />
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/tv_device_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_device"
-        tools:text="Name" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/tv_device_bluetoothclass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_device_name"
-        tools:text="Class" />
+            <TextView
+                android:id="@+id/tv_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Address" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/deviceGroup"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:constraint_referenced_ids="tv_device,tv_device_name,tv_device_bluetoothclass"/>
+            <TextView
+                android:id="@+id/tv_device_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_device"
+                tools:text="Name" />
+
+            <TextView
+                android:id="@+id/tv_device_bluetoothclass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_device_name"
+                tools:text="Class" />
+
+            <TextView
+                android:id="@+id/tv_device_service"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_device_bluetoothclass"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@id/displayServiceButton"
+                card_view:layout_constraintStart_toStartOf="parent"
+                tools:text="Service" />
+
+            <ImageButton
+                android:id="@+id/displayServiceButton"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_device_bluetoothclass"
+                card_view:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/deviceServiceGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tv_device_service,displayServiceButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/deviceServiceRecyclerView"
@@ -60,7 +89,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_device_bluetoothclass"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/deviceCard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

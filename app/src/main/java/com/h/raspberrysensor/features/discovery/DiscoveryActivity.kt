@@ -39,7 +39,7 @@ class DiscoveryActivity : AppCompatActivity(), Injectable, LeDeviceListAdapter.O
     }
 
     private fun initRecyclerView() {
-        devicesRecyclerView.adapter = LeDeviceListAdapter(this)
+        devicesRecyclerView.adapter = LeDeviceListAdapter(this, this)
         devicesRecyclerView.apply {
             setHasFixedSize(true)
             val linearLayout = LinearLayoutManager(context)

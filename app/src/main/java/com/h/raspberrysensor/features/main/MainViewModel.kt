@@ -24,7 +24,8 @@ class MainViewModel @Inject constructor(
     private var bluetoothDevice: BluetoothDevice? = null
     private val disposable = CompositeDisposable()
 
-    private val deviceServiceLiveData: MutableLiveData<List<BluetoothGattService>> = MutableLiveData()
+    private val deviceServiceLiveData: MutableLiveData<List<BluetoothGattService>> =
+        MutableLiveData()
     private val deviceServiceList = mutableListOf<BluetoothGattService>()
 
     override fun onCleared() {
@@ -67,7 +68,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun deviceClicked() {
-        connectGatt(bluetoothDevice ?: throw IllegalStateException("BluetoothDevice is null or empty"))
+        connectGatt(
+            bluetoothDevice ?: throw IllegalStateException("BluetoothDevice is null or empty")
+        )
     }
 
     fun getDeviceResult(device: BluetoothDevice) {
@@ -89,7 +92,7 @@ class MainViewModel @Inject constructor(
                         state.services.forEach { readCharacteristics(it) }
                     }
                     is BLEGattState.CharacteristicRead -> {
-                        Timber.d("Value : " + state.characteristic.getStringValue(0))
+                        Timber.d("Value : %s", state.characteristic.getStringValue(0))
                     }
                     BLEGattState.Disconnected -> Timber.d("BLEGatt disconnected")
                 }
@@ -109,5 +112,6 @@ class MainViewModel @Inject constructor(
             }.addTo(disposable)
     }
 
-    fun getDeviceServiceLiveData(): MutableLiveData<List<BluetoothGattService>> = deviceServiceLiveData
+    fun getDeviceServiceLiveData(): MutableLiveData<List<BluetoothGattService>> =
+        deviceServiceLiveData
 }

@@ -1,3 +1,14 @@
 <resources>
   <string name="app_name">raspberrySensor</string>
+
+    <string name="bluetooth_device_address">Address: %1$s</string>
+    <string name="bluetooth_device_name">"Name: %1$s"</string>
+    <string name="bluetooth_device_class">"Class: %1$s"</string>
+    <string name="bluetooth_device_service">"Service discovered: %1$s"</string>
+
+    <string name="gatt_uuid">"UUID: %1$s"</string>
+    <string name="gatt_characteristic_discovered">"Characteristic discovered: %1$s"</string>
+    <string name="gatt_characteristic_id">"Characteristic ID: %1$s"</string>
+    <string name="gatt_status">"Status: %1$s"</string>
+
 </resources>

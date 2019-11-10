@@ -1,17 +1,20 @@
 package com.h.raspberrysensor.features.discovery
 
 import android.bluetooth.BluetoothDevice
+import android.content.Context
+import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.h.raspberrysensor.R
+import com.h.raspberrysensor.RaspberrySensorApp
 import com.h.raspberrysensor.utils.getBluetoothMajorClassString
 import com.h.raspberrysensor.utils.inflate
 import kotlinx.android.synthetic.main.view_discovery_device_service.view.*
 
-class LeDeviceListAdapter(val actions: OnDeviceSelectedListener) :
+class LeDeviceListAdapter(val actions: OnDeviceSelectedListener, val context: Context) :
     ListAdapter<BluetoothDevice, LeDeviceListAdapter.LeDeviceListViewHolder>
         (BluetoothDeviceDiffUtilCallback()) {
 
@@ -39,10 +42,9 @@ class LeDeviceListAdapter(val actions: OnDeviceSelectedListener) :
         }
 
         fun bind(viewItem: BluetoothDevice) {
-            itemView.tv_device.text = viewItem.address.toString()
-            itemView.tv_device_name.text = viewItem.name
-
-            itemView.tv_device_bluetoothclass.text = getBluetoothMajorClassString(viewItem.bluetoothClass.majorDeviceClass)
+            itemView.tv_device.text = context.resources.getString(R.string.bluetooth_device_address, viewItem.address.toString())
+            itemView.tv_device_name.text = context.resources.getString(R.string.bluetooth_device_name, viewItem.name)
+            itemView.tv_device_bluetoothclass.text = context.resources.getString(R.string.bluetooth_device_class, getBluetoothMajorClassString(viewItem.bluetoothClass.majorDeviceClass))
 
             itemView.tv_device_name.visibility = if (viewItem.name != null && viewItem.name.isNotEmpty()) View.VISIBLE else View.GONE
         }
